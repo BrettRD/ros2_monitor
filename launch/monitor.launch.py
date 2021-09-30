@@ -3,6 +3,7 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 
 machine_hostname = socket.gethostname()
+machine_hostname = machine_hostname.replace('-', '_')
 
 def generate_launch_description():
   nodes = [
