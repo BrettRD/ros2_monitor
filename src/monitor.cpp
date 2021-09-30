@@ -26,11 +26,8 @@ class monitor : public rclcpp::Node
 monitor::monitor(rclcpp::NodeOptions options) :
   Node("monitor", options)
 {
-
   pubtimer = create_wall_timer(1000ms, std::bind(&monitor::publish_stuff, this));
-
   pub = this->create_publisher<sensor_msgs::msg::Temperature>("temperature", 10);
-
 }
 
 
@@ -54,7 +51,7 @@ void monitor::publish_stuff(){
   const size_t len = 100;
   char hostname[len];
   /*int err = */gethostname(hostname, len);
-
+  temperature.get().header.stamp = now();
   temperature.get().header.frame_id = std::string(hostname);
   temperature.get().temperature = fetch_temperature();
 
